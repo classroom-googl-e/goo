@@ -15,55 +15,6 @@
     <div id="unity-fullscreen-button" style="display: none;"></div>
 
 
-  <script type="text/javascript">
-    var player;
-    var leaderboards;
-
-    YaGames
-      .init()
-      .then(ysdk => {
-        //console.log('Yandex SDK initialized');
-        window.ysdk = ysdk;
-        ysdk.adv.showFullscreenAdv({
-        callbacks: {
-          onClose: function(wasShown) {
-            window.focus();
-          },
-          onError: function(error) {
-            // some action on error
-          }
-        }
-			})
-
-        ysdk.getPlayer({ scopes: false }).then(_player => {
-          player = _player;
-        }).catch(err => {
-          //console.log('Error Get Player');
-        });
-
-        ysdk.getLeaderboards()
-          .then(_lb => {
-            leaderboards = _lb
-          });
-
-          window.focus();
-      });
-
-      function CanReviewHTML() {
-          ysdk.feedback.canReview()
-            .then(({ value, reason }) => {
-              if (value) {
-                //console.log('Can Review from HTML: ' + value);
-                unityInstance.SendMessage('Progress', 'SetCanReview', 1);
-              } else {
-                unityInstance.SendMessage('Progress', 'SetCanReview', 0);
-                console.log(reason)
-              }
-            });
-        };
-  </script>
-
-
     <script>
       const hideFullScreenButton = "true";
       const buildUrl = "Build";
