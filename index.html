@@ -122,52 +122,6 @@
         });
     };
 
-    YaGames.init()
-        .then(ysdk => {
-            console.log('Init Yandex SDK');
-            window.ysdk = ysdk;
-            initSDK = true;
-            InitPayments();
-
-            try {
-                ysdk.shortcut.canShowPrompt().then(prompt => {
-                    if (prompt.canShow) {
-                        promptCanShow = true;
-                    }
-                });
-            } catch (e) {
-                console.error('CRASH canShowPrompt: ', e.message);
-            }
-
-            try {
-                ysdk.feedback.canReview().then(({ value, reason }) => {
-                    if (value) {
-                        reviewCanShow = true;
-                    } else {
-                        console.log('reviewCanShow = false', reason)
-                    }
-                })
-
-                ysdk.shortcut.canShowPrompt().then(prompt => {
-                    if (prompt.canShow) {
-                        promptCanShow = true;
-                    }
-                });
-            } catch (e) {
-                console.error('CRASH canShowFeedback: ', e.message);
-            }
-
-            if (initGame == true) {
-                InitSDK(photoSizeForInit, scopesForInit)
-                if (firstAd)
-                    FullscreenShow();
-            }
-            else {
-                if (firstAd)
-                    ysdk.adv.showFullscreenAdv();
-            }
-        });
-
     function InitSDK(photoSize, scopes) {
         console.log('Init GAME');
         initGame = true;
